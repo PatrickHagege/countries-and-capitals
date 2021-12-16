@@ -21,39 +21,66 @@ body    {
 #presentation {
     font-size: 1rem;
     width:90%;
-    height:30vh;
+    height:5vh;
     padding:2em;
     display:flex;
     flex-direction: column;
     align-items: space-evenly;
 }
 
+#guess {
+    height:3vh;
+}
+
+#capital-to-guess   {
+    font-size:1.25rem;
+    font-weight:bold;
+    height:5vh;
+}
+
 #stats  {
+    width:100vw;
     display:flex;
     justify-content: space-evenly;
     width:100%;
 }
 
 #propositions   {
-    height:30vh;
+    width:50vh;
+    height:20vh;
     display:flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items:center;
     flex-wrap: wrap;
-    gap:1rem;
 }
 
-#propositions button   {
-    padding:1.5rem 2.5rem;
-    background-color:rgb(71, 159, 253);
+button   {
+    width:12vw;
+    height:9vh;
+    padding:2rem 3rem;
+    background-color:rgb(53,107,171);
     color:white;
     border:none;
     border-radius: 6px;
-    
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    word-break: keep-all;
 }
 
 #propositions button:active   {
     background-color:rgb(41, 143, 251);
+}
+
+#final-screen   {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+}
+
+div span {
+    padding:1rem;
 }
 
 /*******************************************************/

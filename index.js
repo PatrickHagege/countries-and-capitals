@@ -71,8 +71,8 @@ let currentSet = 0;
 //     });
 // }
 
-let filteredCountries = countries.filter((country)  => {
-    if(country.capital) {
+let filteredCountries = countries.filter((country) => {
+    if (country.capital) {
         return country;
     }
 });
@@ -158,14 +158,14 @@ function shuffle(array) {
 // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 // function shuffle(array) {
 //     let currentIndex = array.length,  randomIndex;
-  
+
 //     // While there remain elements to shuffle...
 //     while (currentIndex != 0) {
-  
+
 //       // Pick a remaining element...
 //       randomIndex = Math.floor(Math.random() * currentIndex);
 //       currentIndex--;
-  
+
 //       // And swap it with the current element.
 //       [array[currentIndex], array[randomIndex]] = [
 //         array[randomIndex], array[currentIndex]];
@@ -175,7 +175,7 @@ function shuffle(array) {
 //   }
 
 function shuffleQuestions(questions) {
-    console.log("QUESTIONS IN SHUFFLE QUESTIONS :", questions);
+    //console.log("QUESTIONS IN SHUFFLE QUESTIONS :", questions);
     for (let index = 0; index < questions.length; index++) {
         let question = questions[index];
         shuffle(question);
@@ -219,47 +219,77 @@ function generateQuestionScreen(answers, questions) {
     choice4Btn.style.backgroundColor = "rgb(53,107,171)";
 }
 
+//let storedScore = localStorage.getItem('score');
+//let storedDate = localStorage.getItem('date');
+
+function populateStorage() {
+    let date = new Date();
+    let formatted_date = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + " à " + date.getHours() + ":" + date.getMinutes();
+    localStorage.setItem('score', `${score}`);
+    localStorage.setItem('date', formatted_date);
+}
+
+function reload ()  {
+    location.reload();
+}
 
 function validateAnswer() {
     let choicePropositions = document.querySelectorAll("#propositions button");
     //console.log(choicePropositions);
-    
+
     for (var i = 0; i < choicePropositions.length; i++) {
         let self = choicePropositions[i];
         let capitalContainer = document.getElementById("capital-to-guess");
-        self.addEventListener('click',  (event) => {
+        self.addEventListener('click', (event) => {
             // prevent browser's default action
             event.preventDefault();
             let clickedCoutry = questions[currentSet].find((country) => event.target.textContent === country.name.common);
             console.log(clickedCoutry.capital[0]);
             console.log(capitalContainer.textContent);
-            if(clickedCoutry.capital[0] === capitalContainer.textContent) {
+            if (clickedCoutry.capital[0] === capitalContainer.textContent) {
                 console.log("right !");
-                score+=10;
-                event.target.style.backgroundColor="green";
-            }   else    {
+                score += 10;
+                event.target.style.backgroundColor = "green";
+            } else {
                 console.log("wrong !");
-                event.target.style.backgroundColor="red";
+                event.target.style.backgroundColor = "red";
             }
             if (currentSet === 9) {
                 console.log("jeu terminé !");
+                populateStorage();
             }
             currentSet++;
             setTimeout(() => {
-                generateQuestionScreen(answers, questions);
+                if (currentSet < 10) {
+                    generateQuestionScreen(answers, questions);
+                } else {
+                    let body = document.querySelector("body");
+                    let finalScreen = document.createElement("div");
+                    finalScreen.setAttribute("id", "final-screen");
+                    let resultSpan = document.createElement("span")
+                    let finalMessage = document.createTextNode(`your score for this game is : ${score}`);
+                    let replayBtn = document.createElement("button");
+                    replayBtn.setAttribute("id", "replay-btn");
+                    replayBtn.textContent = "REPLAY !";
+                    replayBtn.addEventListener("click", reload);
+                    resultSpan.appendChild(finalMessage);
+                    finalScreen.appendChild(resultSpan);
+                    finalScreen.appendChild(replayBtn);
+                    body.appendChild(finalScreen);
+                }
             }, 300);
             // event.target.style.backgroundColor="rgb(71, 159, 253)";
         }, false);
     }
 }
+//console.log(storedScore);
+//console.log(storedDate);
 
 window.addEventListener('load', (event) => {
     console.log("answers", answers, "questions", questions);
     generateQuestionScreen(answers, questions);
 
 });
-
-
 //console.log(shuffledCountries.__proto__);
 
 extractAnswers(shuffledCountries);
