@@ -166,7 +166,7 @@ function validateAnswer() {
                     let body = document.querySelector("body");
                     let finalScreen = document.createElement("div");
                     let resultSpan = document.createElement("span")
-                    let finalMessage = document.createTextNode(`your score for this game is : <span class="red">${score}</span>`);
+                    let finalMessage = document.createTextNode(`your score for this game is : ${score}`);
                     let replayBtn = document.createElement("button");
                     finalScreen.setAttribute("id", "final-screen");
                     replayBtn.setAttribute("id", "replay-btn");
