@@ -1,32 +1,13 @@
-// import {countries as foo} from "./all.js"
 
-// console.log("data");
-// console.log(foo);
-
-////////// ESSAI RECUP DONNEES JSON /////////////////
-
-// const ul = document.createElement("ul");
-// const countries = fetch("./all.json")
-// .then(response => {
-//    return response.json();
-// })
-// .then(function (countries){
-//     countries.forEach(function(country){
-//         const li = document.createElement("li");
-//         //li.textContent = JSON.stringify(country.capital,'<br>');
-//         if (country.capital) {
-//             li.innerHTML = `<img src=${country.flags.svg} alt=""> ${country.translations.fra.common}, sa capitale est ${country.capital}, sa population est de ${country.population} habitants, `;
-//             ul.appendChild(li);
-//         }
-//     });
-// });
-// document.body.appendChild(ul);
-
-
-
-
-////////////////  ESSAI RECUP DONNEES JSON  ///////////////////
 import { countries } from "./all.js";
+
+let capitalContainer = document.getElementById("capital-to-guess");
+let scoreContainer = document.getElementById("earned-points");
+let currentSetContainer = document.getElementById("current-set");
+let choice1Btn = document.getElementById("choice-1");
+let choice2Btn = document.getElementById("choice-2");
+let choice3Btn = document.getElementById("choice-3");
+let choice4Btn = document.getElementById("choice-4");
 
 let shuffledCountries = [];
 let answers = [];
@@ -34,42 +15,6 @@ let questions = [];
 let set = [];
 let score = 0;
 let currentSet = 0;
-
-////               FROM GUILLAUME FETCH QUI MARCHE  !!!           //       
-
-// let chose = [];
-
-// function fetchData() {
-//     return new Promise((resolve, reject) => {
-//         const ul = document.createElement("ul");
-//         fetch("./all.json").then(response => {
-//             resolve(response.json());
-//         })
-//     })
-// }
-
-// async function init() {
-//     try {
-//         chose = await fetchData();
-//         //console.log("chose", chose);
-//     } catch (err) {
-//         console.error(err);
-//     }
-// }
-
-// init();
-// console.log("chose :", chose);
-
-// function displayCountries(list) {
-//     list.forEach(function (country) {
-//         const li = document.createElement("li");
-//         //li.textContent = JSON.stringify(country.capital,'<br>');
-//         if (country.capital) {
-//             li.innerHTML = `<img src=${country.flags.svg} alt=""> ${country.translations.fra.common}, sa capitale est ${country.capital}, sa population est de ${country.population} habitants, `;
-//             ul.appendChild(li);
-//         }
-//     });
-// }
 
 let filteredCountries = countries.filter((country) => {
     if (country.capital) {
@@ -107,6 +52,7 @@ function extractAnswers(shuffledCountries) {
         shuffledCountries.shift();
     }
 }
+
 // answers = tableau des pays réponses (objets country)
 // questions contiendra 10 sets de 4 pays (3 dans un premier temps)
 // sets représente un jeu de questions
@@ -154,26 +100,6 @@ function shuffle(array) {
     }
 }
 
-
-// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-// function shuffle(array) {
-//     let currentIndex = array.length,  randomIndex;
-
-//     // While there remain elements to shuffle...
-//     while (currentIndex != 0) {
-
-//       // Pick a remaining element...
-//       randomIndex = Math.floor(Math.random() * currentIndex);
-//       currentIndex--;
-
-//       // And swap it with the current element.
-//       [array[currentIndex], array[randomIndex]] = [
-//         array[randomIndex], array[currentIndex]];
-//     }
-
-//     return array;
-//   }
-
 function shuffleQuestions(questions) {
     //console.log("QUESTIONS IN SHUFFLE QUESTIONS :", questions);
     for (let index = 0; index < questions.length; index++) {
@@ -182,28 +108,11 @@ function shuffleQuestions(questions) {
     }
 }
 
-function testAnswerData(answers) {
-    const ul = document.createElement("ul");
-    const answer = answers[0];
-    const li = document.createElement("li");
-    //li.textContent = JSON.stringify(country.capital,'<br>');
-    if (answer.capital) {
-        li.innerHTML = `<img src=${answer.flags.svg} alt=""> ${answer.translations.fra.common}, sa capitale est ${answer.capital}, sa population est de ${answer.population} habitants.`;
-        ul.appendChild(li);
-    }
-    document.body.appendChild(ul);
-
-}
-
+//console.log("avant shuffleQuestion answers vaut: ", answers);
+//console.log("avant shuffleQuestion questions vaut: ", questions);
 function generateQuestionScreen(answers, questions) {
     shuffleQuestions(questions);
-    let capitalContainer = document.getElementById("capital-to-guess");
-    let scoreContainer = document.getElementById("earned-points");
-    let currentSetContainer = document.getElementById("current-set");
-    let choice1Btn = document.getElementById("choice-1");
-    let choice2Btn = document.getElementById("choice-2");
-    let choice3Btn = document.getElementById("choice-3");
-    let choice4Btn = document.getElementById("choice-4");
+    //console.log("apres shuffleQuestion questions vaut: ", questions)
 
     scoreContainer.textContent = `score: ${score}`;
     currentSetContainer.textContent = `question: ${currentSet}/10`;
@@ -212,24 +121,13 @@ function generateQuestionScreen(answers, questions) {
     choice2Btn.textContent = questions[currentSet][1].name.common;
     choice3Btn.textContent = questions[currentSet][2].name.common;
     choice4Btn.textContent = questions[currentSet][3].name.common;
-
     choice1Btn.style.backgroundColor = "rgb(53,107,171)";
     choice2Btn.style.backgroundColor = "rgb(53,107,171)";
     choice3Btn.style.backgroundColor = "rgb(53,107,171)";
     choice4Btn.style.backgroundColor = "rgb(53,107,171)";
 }
 
-//let storedScore = localStorage.getItem('score');
-//let storedDate = localStorage.getItem('date');
-
-function populateStorage() {
-    let date = new Date();
-    let formatted_date = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + " à " + date.getHours() + ":" + date.getMinutes();
-    localStorage.setItem('score', `${score}`);
-    localStorage.setItem('date', formatted_date);
-}
-
-function reload ()  {
+function reload() {
     location.reload();
 }
 
@@ -243,10 +141,10 @@ function validateAnswer() {
         self.addEventListener('click', (event) => {
             // prevent browser's default action
             event.preventDefault();
-            let clickedCoutry = questions[currentSet].find((country) => event.target.textContent === country.name.common);
-            console.log(clickedCoutry.capital[0]);
+            let clickedCountry = questions[currentSet].find((country) => event.target.textContent === country.name.common);
+            console.log(clickedCountry.capital[0]);
             console.log(capitalContainer.textContent);
-            if (clickedCoutry.capital[0] === capitalContainer.textContent) {
+            if (clickedCountry.capital[0] === capitalContainer.textContent) {
                 console.log("right !");
                 score += 10;
                 event.target.style.backgroundColor = "green";
@@ -256,19 +154,21 @@ function validateAnswer() {
             }
             if (currentSet === 9) {
                 console.log("jeu terminé !");
-                populateStorage();
+                // populateStorage();
             }
             currentSet++;
             setTimeout(() => {
                 if (currentSet < 10) {
+                    console.log(currentSet);
                     generateQuestionScreen(answers, questions);
                 } else {
+                    currentSetContainer.innerHTML = `${currentSet}/10`;
                     let body = document.querySelector("body");
                     let finalScreen = document.createElement("div");
-                    finalScreen.setAttribute("id", "final-screen");
                     let resultSpan = document.createElement("span")
                     let finalMessage = document.createTextNode(`your score for this game is : ${score}`);
                     let replayBtn = document.createElement("button");
+                    finalScreen.setAttribute("id", "final-screen");
                     replayBtn.setAttribute("id", "replay-btn");
                     replayBtn.textContent = "REPLAY !";
                     replayBtn.addEventListener("click", reload);
@@ -290,14 +190,10 @@ window.addEventListener('load', (event) => {
     generateQuestionScreen(answers, questions);
 
 });
+
 //console.log(shuffledCountries.__proto__);
 
 extractAnswers(shuffledCountries);
 extractQuestionsSets(shuffledCountries);
 pushAnswersInQuestions(answers, questions);
 validateAnswer();
-
-//console.log("answers :", answers);
-//console.log("questions :", questions);
-//testAnswerData(answers);
-// console.log(answers);

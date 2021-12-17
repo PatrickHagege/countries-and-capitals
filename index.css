@@ -3,20 +3,21 @@
     padding:0;
     box-sizing: border-box;
     text-align:center;
+    text-transform: uppercase;
 }
 body    {
+    width:100vw;
     height:100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     font-family: "Helvetica Neue",Helvetica,Arial;
-    width:100%;
+    
     background: rgb(229,242,251) url("./img/background.svg") no-repeat;
     background-size: 100%;
     color:rgb(53,107,171);
 }
-
 
 #presentation {
     font-size: 1rem;
@@ -33,7 +34,7 @@ body    {
 }
 
 #capital-to-guess   {
-    font-size:1.25rem;
+    font-size:2rem;
     font-weight:bold;
     height:5vh;
 }
@@ -60,12 +61,13 @@ button   {
     padding:2rem 3rem;
     background-color:rgb(53,107,171);
     color:white;
-    border:none;
+    border:5px solid white;
     border-radius: 6px;
     display:flex;
     justify-content: center;
     align-items:center;
-    word-break: keep-all;
+    box-shadow: 10px 5px 5px rgb(141, 141, 141);
+    outline: none;
 }
 
 #propositions button:active   {
