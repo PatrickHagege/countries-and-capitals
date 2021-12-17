@@ -53,34 +53,34 @@ function extractAnswers(shuffledCountries) {
     }
 }
 
-// answers = tableau des pays réponses (objets country)
-// questions contiendra 10 sets de 4 pays (3 dans un premier temps)
-// sets représente un jeu de questions
+// answers => array of answers extracted from the countries object imported
+// questions => 10 sets of 4 pays (3 in a first time)
+// sets => a set of 4 questions
 function extractQuestionsSets(shuffledCountries) {
-    // nbr de pays par jeu de questions => 3 puis 4
+    // initialisation of the number of question per set
     let countQuestionsPerSet = 0;
-    // ndr de sets => 10
+    // number of sets => 10
     let countNumberOfSets = 0;
-    // nombre total de pays à extraire de shuffledCountries
+    // will walk through the countries to extract the questions sets
     let counter = 0;
     while (countNumberOfSets < 10) {
-        // tant que le nombre de questions par set de questions (3) n'est pas atteint
+        // while the number of questions by set of questions (3) is not hit
         while (countQuestionsPerSet < 3) {
-            // on push dans un set l'elément situé à l'index courant du tableau shuffledCountries
-            set.push(shuffledCountries[counter]); // 0 puis 1 puis 2
-            // on supprime l'élément courant de shuffledCountries
+            // push in a set the element at current index of shuffledCountries array
+            set.push(shuffledCountries[counter]); // 0 and  1 and three
+            // delete the inserted current element
             shuffledCountries.splice(counter, 1);
-            // on incrémente l'index de l'élément courant dans le set courant
+            // increment the current element in the current set
             countQuestionsPerSet++;
-            // on incrémente le compteur qui parcourt shuffledCountries
+            // increment the counter which walk through shuffledCountries aray
             counter++;
         }
-        // ou spread les valeurs comprises dans set
+        // spread value in a set
         questions[countNumberOfSets] = [...set];
-        // on reinitialise set
+        // reinitialise set
         set = [];
         countNumberOfSets++;
-        // reinitialisation nu nb de questions par set pour relancer un nouveau set
+        // reinitialisation of the nb of questions per set to generate a new set
         countQuestionsPerSet = 0;
     }
 }
@@ -162,7 +162,7 @@ function validateAnswer() {
                     console.log(currentSet);
                     generateQuestionScreen(answers, questions);
                 } else {
-                    currentSetContainer.innerHTML = `<span class="red">${currentSet}</span>/10`;
+                    currentSetContainer.innerHTML = `${currentSet}/10`;
                     let body = document.querySelector("body");
                     let finalScreen = document.createElement("div");
                     let resultSpan = document.createElement("span")
