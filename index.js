@@ -114,8 +114,8 @@ function generateQuestionScreen(answers, questions) {
     shuffleQuestions(questions);
     //console.log("apres shuffleQuestion questions vaut: ", questions)
 
-    scoreContainer.textContent = `score: ${score}`;
-    currentSetContainer.textContent = `question: ${currentSet}/10`;
+    scoreContainer.innerHTML = `score: ${score}`;
+    currentSetContainer.innerHTML = `question: ${currentSet}/10`;
     capitalContainer.textContent = answers[currentSet].capital;
     choice1Btn.textContent = questions[currentSet][0].name.common;
     choice2Btn.textContent = questions[currentSet][1].name.common;
@@ -162,11 +162,11 @@ function validateAnswer() {
                     console.log(currentSet);
                     generateQuestionScreen(answers, questions);
                 } else {
-                    currentSetContainer.innerHTML = `${currentSet}/10`;
+                    currentSetContainer.innerHTML = `<span class="red">${currentSet}</span>/10`;
                     let body = document.querySelector("body");
                     let finalScreen = document.createElement("div");
                     let resultSpan = document.createElement("span")
-                    let finalMessage = document.createTextNode(`your score for this game is : ${score}`);
+                    let finalMessage = document.createTextNode(`your score for this game is : <span class="red">${score}</span>`);
                     let replayBtn = document.createElement("button");
                     finalScreen.setAttribute("id", "final-screen");
                     replayBtn.setAttribute("id", "replay-btn");

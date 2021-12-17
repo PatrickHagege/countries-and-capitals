@@ -11,7 +11,7 @@ body    {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     font-family: "Helvetica Neue",Helvetica,Arial;
     
     background: rgb(229,242,251) url("./img/background.svg") no-repeat;
@@ -20,44 +20,62 @@ body    {
 }
 
 #presentation {
-    font-size: 1rem;
-    width:90%;
+    font-size: 1.15rem;
+    width:100vw;;
     height:5vh;
     padding:2em;
     display:flex;
     flex-direction: column;
+    justify-content:start;
     align-items: space-evenly;
 }
 
 #guess {
     height:3vh;
+    color:green;
+    font-size:1.5rem;
+    margin-bottom:5vh;
+    font-weight:bold;
 }
 
 #capital-to-guess   {
-    font-size:2rem;
+    width:100vw;
+    height:12vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:2.5rem;
     font-weight:bold;
-    height:5vh;
 }
 
 #stats  {
     width:100vw;
     display:flex;
-    justify-content: space-evenly;
+    flex-flow:row;
+    justify-content: space-between;
+    align-items: center;
     width:100%;
 }
 
+#earned-points, #current-set    {
+    font-size : 1.25rem;
+    font-weight:bold;
+    padding:1rem;
+}
+
 #propositions   {
-    width:50vh;
-    height:20vh;
+    width:65vw;
+    height:34vh;
     display:flex;
     justify-content: space-between;
     align-items:center;
     flex-wrap: wrap;
+    margin-bottom:3vh;
 }
 
 button   {
-    width:12vw;
-    height:9vh;
+    width:30vw;
+    height:16vh;
     padding:2rem 3rem;
     background-color:rgb(53,107,171);
     color:white;
@@ -68,6 +86,12 @@ button   {
     align-items:center;
     box-shadow: 10px 5px 5px rgb(141, 141, 141);
     outline: none;
+    font-size:2rem;
+    opacity:0.5;
+}
+
+#replay-btn {
+    height:5vh
 }
 
 #propositions button:active   {
@@ -83,6 +107,10 @@ button   {
 
 div span {
     padding:1rem;
+}
+
+span.red    {
+    color:red;
 }
 
 /*******************************************************/
