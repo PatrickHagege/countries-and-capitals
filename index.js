@@ -1,14 +1,6 @@
 
 import { countries } from "./all.js";
 
-let capitalContainer = document.getElementById("capital-to-guess");
-let scoreContainer = document.getElementById("earned-points");
-let currentSetContainer = document.getElementById("current-set");
-let choice1Btn = document.getElementById("choice-1");
-let choice2Btn = document.getElementById("choice-2");
-let choice3Btn = document.getElementById("choice-3");
-let choice4Btn = document.getElementById("choice-4");
-
 let shuffledCountries = [];
 let answers = [];
 let questions = [];
@@ -111,6 +103,14 @@ function shuffleQuestions(questions) {
 //console.log("avant shuffleQuestion answers vaut: ", answers);
 //console.log("avant shuffleQuestion questions vaut: ", questions);
 function generateQuestionScreen(answers, questions) {
+    let capitalContainer = document.getElementById("capital-to-guess");
+    let scoreContainer = document.getElementById("earned-points");
+    let currentSetContainer = document.getElementById("current-set");
+    let choice1Btn = document.getElementById("choice-1");
+    let choice2Btn = document.getElementById("choice-2");
+    let choice3Btn = document.getElementById("choice-3");
+    let choice4Btn = document.getElementById("choice-4");
+
     shuffleQuestions(questions);
     //console.log("apres shuffleQuestion questions vaut: ", questions)
 
@@ -133,6 +133,7 @@ function reload() {
 
 function validateAnswer() {
     let choicePropositions = document.querySelectorAll("#propositions button");
+    let currentSetContainer = document.getElementById("current-set");
     //console.log(choicePropositions);
 
     for (var i = 0; i < choicePropositions.length; i++) {
